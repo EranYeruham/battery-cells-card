@@ -5,13 +5,13 @@ class BatteryCellsCard extends HTMLElement {
     }
     this.config = config;
     
-    // Create card structure
+    // Create card structure with inline styles for better compatibility
     if (!this.content) {
       this.innerHTML = `
         <ha-card>
-          <div class="card-content">
-            <div class="header"></div>
-            <div class="cells-grid"></div>
+          <div class="card-content" style="padding: 16px;">
+            <div class="header" style="margin-bottom: 12px;"></div>
+            <div class="cells-grid" style="display: grid; grid-template-columns: 1fr 1fr; gap: 4px; text-align: center;"></div>
           </div>
         </ha-card>
       `;
@@ -79,7 +79,7 @@ class BatteryCellsCard extends HTMLElement {
       }
       
       gridHtml += `
-        <div class="cell-item">
+        <div style="padding: 2px 0;">
           🔋${cell.id.toString().padStart(2, '0')}.&nbsp;&nbsp;&nbsp;
           <font color="${color}">${displayValue}</font>
         </div>
@@ -113,31 +113,3 @@ window.customCards.push({
   preview: true,
   documentationURL: 'https://github.com/yourusername/battery-cells-card'
 });
-
-// Add styles
-const style = document.createElement('style');
-style.textContent = `
-  battery-cells-card {
-    display: block;
-  }
-  
-  battery-cells-card .card-content {
-    padding: 16px;
-  }
-  
-  battery-cells-card .header {
-    margin-bottom: 12px;
-  }
-  
-  battery-cells-card .cells-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 4px;
-    text-align: center;
-  }
-  
-  battery-cells-card .cell-item {
-    padding: 2px 0;
-  }
-`;
-document.head.appendChild(style);
