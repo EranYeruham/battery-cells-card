@@ -53,11 +53,16 @@ class BatteryCellsCard extends HTMLElement {
     const maxVoltage = validVoltages.length > 0 ? Math.max(...validVoltages) : null;
     const minVoltage = validVoltages.length > 0 ? Math.min(...validVoltages) : null;
     const deltaVoltage = (maxVoltage !== null && minVoltage !== null) ? maxVoltage - minVoltage : null;
-    
+    const sumVoltage = validVoltages.length > 0 ? validVoltages.reduce((sum, v) => sum + v, 0) : null;
+
     // Update header
     let headerHtml = `<center><b>${title}</b>`;
     if (showDelta && deltaVoltage !== null) {
-      headerHtml += `<br><small>Δ ${(deltaVoltage * 1000).toFixed(1)} mV</small>`;
+      headerHtml += `<br><small>Δ ${(deltaVoltage * 1000).toFixed(1)} mV`;
+      if (sumVoltage !== null) {
+        headerHtml += ` | Σ ${sumVoltage.toFixed(2)} V`;
+      }
+      headerHtml += `</small>`;
     }
     headerHtml += `</center>`;
     this.header.innerHTML = headerHtml;
